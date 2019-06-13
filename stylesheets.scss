@@ -1,0 +1,270 @@
+
+
+// VARIABLES
+
+$background: #c7e2f2;
+$base-color: #b4e5ff;
+$footerblue: #86b9d7;
+
+// MIXIN
+@mixin width-height($property) {
+    width: $property;
+    height: $property
+}
+
+@mixin background-pre-next{
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+// GENERAL
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    #page{
+    width: 100%;
+    max-width: 2500px;
+    margin: auto;
+    }
+}
+
+img{
+    width:100%;
+}
+// HEADER
+
+header{
+    position: relative;
+    display: flex;
+    h1{
+        position: absolute;
+        width: 41%;
+        left: 30%;
+        top: 8%;
+    }
+}
+
+//REASONS
+
+// DEFINITION DES GRID AREA
+
+.image-reason{
+    grid-area: image-reason;
+}
+
+.title-reason{
+    grid-area: title-reason;
+}
+
+.p-reason{
+    grid-area: p-reason;
+}
+
+#reasons{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 5%;
+    padding:0% 5%;
+    background-color: $background;
+    .reason{
+        padding: 2%;
+        margin: 2%;
+        .image-reason{
+            width: 50%;
+            margin: auto;
+        }
+        .title-reason{
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .p-reason{
+            text-align: justify;
+        }
+    }
+}
+
+// BLOG
+
+#blog{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    font-size: 1.3em;
+    .article{
+        padding: 4%;
+        h2{
+            text-align: right;
+            line-height: 90%;
+            .big-text{
+                font-size: 1.5em;
+            }
+        }
+        p{
+            text-align: justify;
+        }
+        &.id1{
+            background-color: darken($base-color, 5%);
+        }
+        &.id2{
+            background-color: darken($base-color, 15%);
+        }
+        &.id3{
+            background-color: darken($base-color, 30%);
+        }
+        &.id4{
+            background-color: darken($base-color, 45%);
+        }
+    }
+}
+
+// SLIDESHOW
+
+.container{
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 60%;
+  
+  }
+  
+  .slide_img{
+    position: absolute;
+    @include width-height(100%);
+    z-index: 1;
+    img{
+        @include width-height(100%);
+    }
+  }
+  
+  #id1, #id2, #id3{
+    display: none;
+  }
+  
+  .pre, .nxt{
+    width: 20%;
+    height: 40%;
+    margin-top: 12%;
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    cursor: pointer;
+  }
+  
+  .pre{
+    left: 0;
+    background-image: url(images/back-64.png);
+    @include background-pre-next;
+  }
+  
+  .nxt{
+    right: 0;
+    background-image: url(images/next-64.png);
+    @include background-pre-next;
+  }
+  
+  .nav{
+    width: 100%;
+    height: 11px;
+    bottom: 10%;
+    position: absolute;
+    text-align: center;
+    z-index: 99;
+  }
+  
+  .dots{
+    top: -5px;
+    @include width-height(18px);
+    margin: 0 4px;
+    position: relative;
+    border-radius: 50%;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.4);
+  }
+    
+  #id1:checked ~ #one,
+  #id2:checked ~ #two,
+  #id3:checked ~ #three
+  {z-index: 9;}
+  
+  #id1:checked ~ .nav #dot1,
+  #id2:checked ~ .nav #dot2,
+  #id3:checked ~ .nav #dot3{
+    background: $base-color;
+  } 
+
+// NEWSLETTER
+
+#newsletter{
+    background-color: darken($background, 5%);
+    overflow: hidden;
+    form{
+        text-align: center;
+        padding-bottom: 2%;
+        .input-bouton{
+            background-color: darken($base-color, 60%);
+            color: white;
+            padding: 1%;
+            border-radius: 10%;
+            margin-left: 2%;
+        }
+        .input-email{
+            width: 30%;
+            height: 30px;
+            box-shadow: none;
+        }
+    }
+}
+
+// FOOTER
+
+footer{
+    text-align: center;
+    background-color: $footerblue;
+    padding: 1%;
+}
+
+// MEDIA QUERIES
+
+@media screen and (max-width: 992px) {
+    #reasons{
+        grid-template-columns: 1fr;
+        .reason{
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: 1fr 1fr;
+            grid-column-gap: 5%;
+            grid-template-areas: "image-reason title-reason"
+                                "image-reason p-reason";
+            .image-reason{
+                width: 100%;
+            }
+            .title-reason {
+                text-align: left;
+            }
+        }                          
+    }
+    #blog{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #reasons{
+        grid-template-columns: 1fr;
+        .reason{
+            display: block;
+            .image-reason{
+                width: 60%;
+            }
+        }
+    }
+    #blog{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
